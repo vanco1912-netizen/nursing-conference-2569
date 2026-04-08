@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ลงทะเบียนประชุมนำเสนอผลงานคุณภาพ | กลุ่มภารกิจด้านการพยาบาล</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0d7377;
+    --teal-dark: #095e62;
+    --teal-light: #14a9ad;
+    --teal-pale: #e8f7f7;
+    --gold: #c8973a;
+    --gold-light: #f0d080;
+    --navy: #1a2744;
+    --gray-100: #f4f6f9;
+    --gray-200: #e8ecf0;
+    --gray-400: #9ba3af;
+    --gray-600: #5c6370;
+    --gray-800: #2d333b;
+    --red: #d63031;
+    --green: #00b894;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 6px 24px rgba(0,0,0,0.12);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.16);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--teal-dark) 60%, var(--teal) 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(200,151,58,0.25);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+  }
+  .header-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+  /* TABS */
+  .tab-bar {
+    background: var(--white);
+    border-bottom: 2px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 16px 12px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-400);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .tab-btn.active {
+    color: var(--teal);
+  }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 2px 2px 0 0;
+  }
+  .tab-icon { font-size: 18px; }
+
+  /* MAIN */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  /* FORM CARD */
+  .form-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .form-card-header {
+    background: linear-gradient(90deg, var(--teal-pale), #fff);
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .form-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .form-card-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .form-card-header p {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 2px;
+  }
+  .form-card-body { padding: 28px; }
+
+  /* FORM ELEMENTS */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .field-row.full { grid-template-columns: 1fr; }
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  label .req { color: var(--red); margin-left: 2px; }
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13,115,119,0.1);
+  }
+  select { cursor: pointer; }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ROLE SELECTOR */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 0;
+  }
+  .role-card {
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: var(--white);
+  }
+  .role-card:hover { border-color: var(--teal-light); background: var(--teal-pale); }
+  .role-card.selected { border-color: var(--teal); background: var(--teal-pale); }
+  .role-card input[type="radio"] { display: none; }
+  .role-card-icon { font-size: 28px; margin-bottom: 8px; }
+  .role-card-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .role-card-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+  .role-card .check {
+    position: absolute; top: 12px; right: 12px;
+    width: 20px; height: 20px;
+    border: 2px solid var(--gray-200);
+    border-radius: 50%;
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .role-card.selected .check {
+    background: var(--teal);
+    border-color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .role-card.selected .check::after {
+    content: '✓';
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* FILE UPLOAD */
+  .upload-zone {
+    border: 2px dashed var(--gray-200);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--gray-100);
+    position: relative;
+  }
+  .upload-zone:hover { border-color: var(--teal); background: var(--teal-pale); }
+  .upload-zone.dragover { border-color: var(--teal); background: var(--teal-pale); }
+  .upload-zone input[type="file"] {
+    position: absolute; inset: 0;
+    opacity: 0; cursor: pointer;
+    width: 100%; height: 100%;
+  }
+  .upload-icon { font-size: 40px; margin-bottom: 12px; }
+  .upload-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .upload-hint { font-size: 12px; color: var(--gray-400); }
+  .upload-types {
+    display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
+  }
+  .upload-type-badge {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  .file-preview {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--teal-pale);
+    border: 1.5px solid var(--teal);
+    border-radius: var(--radius);
+    margin-top: 12px;
+  }
+  .file-preview.show { display: flex; }
+  .file-preview-icon { font-size: 28px; }
+  .file-preview-name { font-size: 13px; font-weight: 600; color: var(--teal-dark); flex: 1; word-break: break-all; }
+  .file-preview-size { font-size: 11px; color: var(--gray-400); }
+  .file-remove {
+    background: none; border: none;
+    font-size: 18px; cursor: pointer;
+    color: var(--gray-400); transition: color 0.2s;
+  }
+  .file-remove:hover { color: var(--red); }
+
+  /* PRESENTER FIELDS */
+  .presenter-section {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--gray-200);
+  }
+  .presenter-section.show { display: block; animation: fadeIn 0.3s ease; }
+  .section-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--teal-pale);
+  }
+
+  /* SUBMIT BUTTON */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(13,115,119,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,115,119,0.4); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* REGISTRANTS TABLE */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+  }
+  .stat-number { font-size: 32px; font-weight: 700; color: var(--teal); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--gray-400); margin-top: 4px; font-weight: 500; }
+
+  .filter-bar {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-bar input, .filter-bar select {
+    flex: 1; min-width: 160px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+  }
+  .filter-bar input:focus, .filter-bar select:focus { border-color: var(--teal); }
+
+  .table-wrapper {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--gray-200); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--teal-pale); }
+  tbody td { padding: 12px 16px; font-size: 13px; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-presenter { background: #fff3cd; color: #856404; }
+  .badge-attendee { background: #d1ecf1; color: #0c5460; }
+
+  .file-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: var(--teal); font-size: 12px; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+  }
+  .file-link:hover { color: var(--teal-dark); text-decoration: underline; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--gray-400);
+  }
+  .empty-state-icon { font-size: 56px; margin-bottom: 16px; }
+  .empty-state p { font-size: 15px; }
+
+  /* EXPORT BTN */
+  .btn-export {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-export:hover { background: var(--teal-dark); }
+
+  /* SUCCESS MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-icon { font-size: 64px; margin-bottom: 16px; }
+  .modal h3 { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .modal p { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-bottom: 24px; }
+  .modal-detail {
+    background: var(--teal-pale);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    text-align: left;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--navy);
+    line-height: 1.7;
+  }
+  .btn-ok {
+    padding: 12px 32px;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-ok:hover { background: var(--teal-dark); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 2000;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 600px) {
+    .field-row { grid-template-columns: 1fr; }
+    .role-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr; }
+    .header h1 { font-size: 20px; }
+    .form-card-body { padding: 20px; }
+    .modal { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">กลุ่มภารกิจด้านการพยาบาล · รพ.สรรพสิทธิประสงค์</div>
+    <h1>ลงทะเบียนประชุมนำเสนอผลงานคุณภาพ<br>ระดับพยาบาลวิชาชีพ</h1>
+    <div class="header-sub">ระบบลงทะเบียนสำหรับผู้เข้าร่วมและผู้นำเสนอผลงาน · ปีงบประมาณ 2569</div>
+    <div class="header-meta">
+      <span>📋 ลงทะเบียนออนไลน์</span>
+      <span>🏥 128 หน่วยงาน</span>
+      <span>📁 รองรับ VDO / PPTX</span>
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab-inner">
+    <button class="tab-btn active" onclick="switchTab('form', this)">
+      <span class="tab-icon">📝</span> ลงทะเบียน
+    </button>
+    <button class="tab-btn" onclick="switchTab('list', this)">
+      <span class="tab-icon">👥</span> รายชื่อผู้ลงทะเบียน
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- REGISTRATION FORM -->
+  <div class="panel active" id="panel-form">
+
+    <!-- ROLE SELECTION -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">🎯</div>
+        <div>
+          <h2>เลือกประเภทการเข้าร่วม</h2>
+          <p>กรุณาเลือกว่าท่านจะเข้าร่วมในฐานะใด</p>
+        </div>
+      </div>
+      <div class="form-card-body">
+        <div class="role-grid">
+          <label class="role-card" id="card-attendee" onclick="selectRole('attendee')">
+            <input type="radio" name="role" value="attendee">
+            <div class="check"></div>
+            <div class="role-card-icon">👩‍⚕️</div>
+            <div class="role-card-title">ผู้เข้าร่วมประชุม</div>
+            <div class="role-card-desc">เข้าร่วมรับฟังและเรียนรู้จากการนำเสนอผลงานคุณภาพ</div>
+          </label>
+          <label class="role-card" id="card-presenter" onclick="selectRole('presenter')">
+            <input type="radio" name="role" value="presenter">
+            <div class="check"></div>
+            <div class="role-card-icon">🎤</div>
+            <div class="role-card-title">ผู้นำเสนอผลงาน</div>
+            <div class="role-card-desc">นำเสนอผลงานคุณภาพพร้อมแนบไฟล์ Slide หรือ VDO</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONAL INFO -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">👤</div>
+        <div>
+          <h2>ข้อมูลส่วนตัว</h2>
+          <p>กรอกข้อมูลของท่านให้ครบถ้วน</p>
+        </div>
+      </div>
+      <div class="form-card-body">
+        <div class="field-row">
+          <div class="field-group">
+            <label>คำนำหน้า <span class="req">*</span></label>
+            <select id="prefix">
+              <option value="">-- เลือก --</option>
+              <option>นาง</option>
+              <option>นางสาว</option>
+              <option>นาย</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>ตำแหน่ง</label>
+            <select id="position">
+              <option value="">-- เลือก --</option>
+              <option>พยาบาลวิชาชีพ</option>
+              <option>พยาบาลวิชาชีพชำนาญการ</option>
+              <option>พยาบาลวิชาชีพชำนาญการพิเศษ</option>
+              <option>พยาบาลวิชาชีพเชี่ยวชาญ</option>
+              <option>อื่น ๆ</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>ชื่อ <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="ชื่อจริง">
+          </div>
+          <div class="field-group">
+            <label>นามสกุล <span class="req">*</span></label>
+            <input type="text" id="lname" placeholder="นามสกุล">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="0812345678">
+          </div>
+          <div class="field-group">
+            <label>อีเมล</label>
+            <input type="email" id="email" placeholder="example@snmh.go.th">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPARTMENT -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">🏥</div>
+        <div>
+          <h2>สังกัดกลุ่มงาน / หน่วยงาน</h2>
+          <p>เลือกกลุ่มงานก่อน จากนั้นเลือกหน่วยงาน</p>
+        </div>
+      </div>
+      <div class="form-card-body">
+        <div class="field-row full">
+          <div class="field-group">
+            <label>กลุ่มงาน <span class="req">*</span></label>
+            <select id="dept-group" onchange="updateUnits()">
+              <option value="">-- เลือกกลุ่มงาน --</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label>หน่วยงาน <span class="req">*</span></label>
+            <select id="dept-unit">
+              <option value="">-- เลือกหน่วยงาน --</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRESENTER SECTION -->
+    <div class="form-card" id="presenter-card" style="display:none;">
+      <div class="form-card-header">
+        <div class="form-card-icon">🎤</div>
+        <div>
+          <h2>ข้อมูลการนำเสนอผลงาน</h2>
+          <p>กรอกรายละเอียดผลงานและแนบไฟล์นำเสนอ</p>
+        </div>
+      </div>
+      <div class="form-card-body">
+        <div class="field-row full">
+          <div class="field-group">
+            <label>ชื่อผลงาน / หัวข้อที่นำเสนอ <span class="req">*</span></label>
+            <input type="text" id="work-title" placeholder="ระบุชื่อผลงานคุณภาพที่จะนำเสนอ">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>ประเภทผลงาน <span class="req">*</span></label>
+            <select id="work-type">
+              <option value="">-- เลือกประเภท --</option>
+              <option>CQI (Continuous Quality Improvement)</option>
+              <option>R2R (Routine to Research)</option>
+              <option>นวัตกรรมทางการพยาบาล</option>
+              <option>Best Practice</option>
+              <option>อื่น ๆ</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>ระยะเวลานำเสนอ (นาที)</label>
+            <select id="duration">
+              <option value="">-- เลือก --</option>
+              <option>10 นาที</option>
+              <option>15 นาที</option>
+              <option>20 นาที</option>
+              <option>30 นาที</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label>สรุปย่อผลงาน (Abstract)</label>
+            <textarea id="abstract" rows="3" placeholder="สรุปสาระสำคัญของผลงานโดยย่อ ไม่เกิน 200 คำ"></textarea>
+          </div>
+        </div>
+
+        <div class="section-label">แนบไฟล์นำเสนอ</div>
+
+        <div class="upload-zone" id="upload-zone"
+             ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <input type="file" id="file-input" accept=".pptx,.ppt,.mp4,.avi,.mov,.wmv,.mkv,.pdf"
+                 onchange="handleFileSelect(this)">
+          <div class="upload-icon">📁</div>
+          <div class="upload-title">คลิกเพื่อเลือกไฟล์ หรือลากมาวางที่นี่</div>
+          <div class="upload-hint">รองรับไฟล์นำเสนอในรูปแบบต่อไปนี้</div>
+          <div class="upload-types">
+            <span class="upload-type-badge">🎬 MP4</span>
+            <span class="upload-type-badge">🎬 AVI</span>
+            <span class="upload-type-badge">🎬 MOV</span>
+            <span class="upload-type-badge">📊 PPTX</span>
+            <span class="upload-type-badge">📊 PPT</span>
+            <span class="upload-type-badge">📄 PDF</span>
+          </div>
+        </div>
+
+        <div class="file-preview" id="file-preview">
+          <div class="file-preview-icon" id="file-icon">📁</div>
+          <div>
+            <div class="file-preview-name" id="file-name"></div>
+            <div class="file-preview-size" id="file-size"></div>
+          </div>
+          <button class="file-remove" onclick="removeFile()" title="ลบไฟล์">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="submitForm()">
+      <span>✅</span>
+      <span>ยืนยันการลงทะเบียน</span>
+    </button>
+  </div>
+
+  <!-- REGISTRANT LIST -->
+  <div class="panel" id="panel-list">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total">0</div>
+        <div class="stat-label">ผู้ลงทะเบียนทั้งหมด</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-presenter">0</div>
+        <div class="stat-label">ผู้นำเสนอผลงาน</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-attendee">0</div>
+        <div class="stat-label">ผู้เข้าร่วมประชุม</div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="search-input" placeholder="🔍 ค้นหาชื่อ / หน่วยงาน..." oninput="renderTable()">
+      <select id="filter-role" onchange="renderTable()">
+        <option value="">ประเภท: ทั้งหมด</option>
+        <option value="presenter">ผู้นำเสนอผลงาน</option>
+        <option value="attendee">ผู้เข้าร่วมประชุม</option>
+      </select>
+      <select id="filter-group" onchange="renderTable()">
+        <option value="">กลุ่มงาน: ทั้งหมด</option>
+      </select>
+      <button class="btn-export" onclick="loadRegistrants()" style="background:var(--teal)">🔄 Refresh</button>
+      <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>ชื่อ-นามสกุล</th>
+            <th>กลุ่มงาน</th>
+            <th>หน่วยงาน</th>
+            <th>ประเภท</th>
+            <th>ผลงาน</th>
+            <th>ไฟล์</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div class="empty-state" id="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p>ยังไม่มีผู้ลงทะเบียน</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h3>ลงทะเบียนสำเร็จ!</h3>
+    <p>ระบบได้บันทึกข้อมูลของท่านเรียบร้อยแล้ว</p>
+    <div class="modal-detail" id="modal-detail"></div>
+    <button class="btn-ok" onclick="closeModal()">ตกลง</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// DATA
+const GROUPS = {
+  "กลุ่มงานการพยาบาลผู้ป่วยอายุรกรรมสาย 1": ["หอผู้ป่วยอายุรกรรมชาย ชั้น 4","หอผู้ป่วยอายุรกรรมชาย ชั้น 5","หอผู้ป่วยอายุรกรรมชาย ชั้น 6","ห้องผู้ป่วยหนักอายุรกรรม 2 ทิศเหนือ","ห้องผู้ป่วยหนักอายุรกรรม 3 ทิศใต้"],
+  "กลุ่มงานการพยาบาลผู้ป่วยอายุรกรรมสาย 2": ["ห้องผู้ป่วยหนักอายุรกรรม 2 ทิศใต้","ห้องผู้ป่วยหนักโรคหลอดเลือดสมอง","ห้องผู้ป่วยหนักพระตาพระวอ","หอผู้ป่วยอายุรกรรมหญิง ชั้น 4","หอผู้ป่วยอายุรกรรมหญิง ชั้น 5","หอผู้ป่วยอายุรกรรมหญิง ชั้น 6"],
+  "กลุ่มงานการพยาบาลผู้ป่วยอายุรกรรมสาย 3": ["หอผู้ป่วยพิเศษพระปทุมวรราชสุริยวงศ์ 5","หอผู้ป่วยพิเศษอายุรกรรม","หอผู้ป่วยอายุรกรรมโรคเลือด","หอผู้ป่วยเคมีบำบัด"],
+  "กลุ่มงานการพยาบาลผู้ป่วยหนักอายุรกรรม": ["ห้องผู้ป่วยหนักอายุรกรรม 1 ทิศใต้","ห้องผู้ป่วยหนักอายุรกรรม 1 ทิศเหนือ","ห้องผู้ป่วยหนักหัวใจและหลอดเลือด 1","ห้องผู้ป่วยหนักหัวใจและหลอดเลือด 2","หอผู้ป่วยโรคหัวใจและหลอดเลือด"],
+  "กลุ่มงานการพยาบาลตรวจรักษาพิเศษ": ["ห้องตรวจพิเศษศูนย์โรคหัวใจ","ศูนย์ไตเทียมสรรพสิทธิ์","ห้องส่องกล้องอายุรกรรม","หน่วยให้ยาเคมีบำบัด","ศูนย์รังสีร่วมรักษา"],
+  "กลุ่มงานการพยาบาลผู้ป่วยศัลยกรรมทั่วไป": ["ห้องผู้ป่วยหนักศัลยกรรม 1","ห้องผู้ป่วยหนักศัลยกรรม 2","ห้องผู้ป่วยหนักศัลยกรรม 3","หอผู้ป่วยศัลยกรรมทั่วไป 1","หอผู้ป่วยศัลยกรรมทั่วไป 2","หอผู้ป่วยศัลยกรรมทั่วไป 3","หอผู้ป่วยศัลยกรรมทั่วไป 4"],
+  "กลุ่มงานการพยาบาลผู้ป่วยศัลยกรรมอุบัติเหตุ": ["หอผู้ป่วยศัลยกรรมอุบัติเหตุ","ห้องผู้ป่วยหนักบาดแผลไฟไหม้น้ำร้อนลวก","ห้องผู้ป่วยหนักหลวงปู่ชา","ห้องผู้ป่วยหนักศัลยกรรมอุบัติเหตุ 1","ห้องผู้ป่วยหนักศัลยกรรมอุบัติเหตุ 2"],
+  "กลุ่มงานการพยาบาลผู้ป่วยศัลยกรรมประสาท": ["ห้องผู้ป่วยหนักศัลยกรรมประสาท 1","ห้องผู้ป่วยหนักศัลยกรรมประสาท 2","ห้องผู้ป่วยหนักศัลยกรรมประสาท 3","หอผู้ป่วยศัลยกรรมประสาทหญิง","หอผู้ป่วยศัลยกรรมประสาทชาย"],
+  "กลุ่มงานการพยาบาลผู้ป่วยศัลยกรรมเฉพาะทาง": ["หอผู้ป่วยศัลยกรรมระบบปัสสาวะ","หอผู้ป่วยพิเศษศัลยกรรม","หอผู้ป่วยพิเศษวิชิต","หอผู้ป่วยศัลยกรรมตกแต่ง","หอผู้ป่วยศัลยกรรมเด็ก","หอผู้ป่วยหลวงปู่ชา"],
+  "กลุ่มงานการพยาบาลผู้ป่วยศัลยกรรมหัวใจหลอดเลือดและทรวงอก": ["ห้องผู้ป่วยหนักศัลยกรรมหัวใจและทรวงอก 1","ห้องผู้ป่วยหนักศัลยกรรมหัวใจและทรวงอก 2","หอผู้ป่วยศัลยกรรมหัวใจและทรวงอก","หอผู้ป่วยศัลยกรรมทรวงอกและหลอดเลือด"],
+  "กลุ่มงานการพยาบาลการรับบริจาคปลูกถ่ายอวัยวะและเนื้อเยื่อ": ["ICU BMT","ICU organ Transplant"],
+  "กลุ่มงานการพยาบาลผู้ป่วยออร์โธปิดิกส์": ["หอผู้ป่วยพิเศษพระปทุมวรราชสุริยวงศ์ 1","ห้องผู้ป่วยหนักออร์โธปิดิกส์และอุบัติเหตุ","หอผู้ป่วยศัลยกรรมกระดูกชาย 1","หอผู้ป่วยศัลยกรรมกระดูกชาย 2","หอผู้ป่วยศัลยกรรมกระดูกหญิง","หอผู้ป่วยบาดเจ็บไขสันหลัง"],
+  "กลุ่มงานการพยาบาลผู้ป่วยวิสัญญี": ["งานวิสัญญีพยาธิฯ ชั้น 3","งานวิสัญญีพยาธิฯ ชั้น 4","งานวิสัญญีพยาธิฯ ชั้น 5","งานวิสัญญีพยาธิฯ ชั้น 6","งานวิสัญญีExcellence ชั้น 4","งานวิสัญญีExcellence ชั้น 6"],
+  "กลุ่มงานการพยาบาลผู้ป่วยห้องผ่าตัด": ["งานห้องผ่าตัดพยาธิฯ ชั้น 3","งานห้องผ่าตัดพยาธิฯ ชั้น 4","งานห้องผ่าตัดพยาธิฯ ชั้น 5","งานห้องผ่าตัดพยาธิฯ ชั้น 6","งานห้อผ่าตัด Excellence ชั้น 4","งานห้อผ่าตัด Excellence ชั้น 6"],
+  "กลุ่มงานการพยาบาลผู้ป่วยนอก": ["งานผู้ป่วยนอกสาย 1","งานผู้ป่วยนอกสาย 2","งานผู้ป่วยนอกสาย 3","งานผู้ป่วยนอกสาย 4"],
+  "กลุ่มงานการพยาบาลผู้ป่วยอุบัติเหตุและฉุกเฉิน": ["งานผู้ป่วยอุบัติเหตุ+ฉุกเฉิน","Refer","ศูนย์ดูแลผู้ป่วยก่อนถึงโรงพยาบาล","ศูนย์เคลื่อนย้ายผู้ป่วย","SCH-ER"],
+  "กลุ่มงานการพยาบาลผู้ป่วยสูติ - นรีเวช": ["หอผู้ป่วยสูติกรรม 2","หอผู้ป่วยสูติกรรม 3","หอผู้ป่วยนรีเวชกรรม","หอผู้ป่วยพิเศษพระปทุมวรราชสุริยวงศ์ 4"],
+  "กลุ่มงานการพยาบาลผู้ป่วยจักษุ โสต ศอ นาสิก": ["หอผู้ป่วยจักษุ","หอผู้ป่วยโสต ศอ นาสิก","หอผู้ป่วยพระปทุมวรราชสุริยวงศ์ 3"],
+  "กลุ่มงานการพยาบาลผู้ป่วยกุมารเวชกรรมสาย 1": ["ห้องผู้ป่วยหนัก SCH ICU 3","ห้องผู้ป่วยหนัก SCH ICU 2","ห้องผู้ป่วยหนักกุมารเวชกรรมโรคหัวใจ"],
+  "กลุ่มงานการพยาบาลผู้ป่วยกุมารเวชกรรมสาย 2": ["หอผู้ป่วยเด็ก 1,2","ห้องผู้ป่วยหนักทารกแรกกิด 1","ห้องผู้ป่วยหนักทารกแรกกิด 2","ห้องผู้ป่วยหนักทารกแรกกิด 3"],
+  "กลุ่มงานการพยาบาลผู้ป่วยกุมารเวชกรรมสาย 3": ["หอผู้ป่วย SCH-3 พิเศษ","หอผู้ป่วย SCH-2 สามัญ","หอผู้ป่วยเด็ก 5","หอผู้ป่วยพระปทุมวรราชสุริยวงศ์ 2"],
+  "กลุ่มงานการพยาบาลผู้คลอด": ["ห้องคลอด","หน่วยฝากครรภ์"],
+  "กลุ่มงานควบคุมการติดเชื้อภายในโรงพยาบาล": ["งานจ่ายกลาง","IC"],
+  "กลุ่มงานกลุ่มงานการพยาบาลจิตเวช": ["กลุ่มงานการพยาบาลจิตเวช"],
+  "กลุ่มงานวิจัยและพัฒนาการพยาบาล": ["กลุ่มงานวิจัยและพัฒนาการพยาบาล"]
+};
+
+// ★ วาง URL ที่ได้จาก Deploy Apps Script ตรงนี้
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGA28WVIcg1OtKOmVUYcPG5MhHOhEK9HESDc7ljXYzpATejUkzgxtCISJm56AlasirKg/exec';
+
+let registrants = [];
+let selectedRole = null;
+let selectedFile = null;
+
+// INIT
+(function init() {
+  const gSel = document.getElementById('dept-group');
+  const fGrp = document.getElementById('filter-group');
+  Object.keys(GROUPS).forEach(g => {
+    gSel.appendChild(new Option(g, g));
+    fGrp.appendChild(new Option(g, g));
+  });
+})();
+
+function updateUnits() {
+  const g = document.getElementById('dept-group').value;
+  const u = document.getElementById('dept-unit');
+  u.innerHTML = '<option value="">-- เลือกหน่วยงาน --</option>';
+  if (g && GROUPS[g]) GROUPS[g].forEach(unit => u.appendChild(new Option(unit, unit)));
+}
+
+function selectRole(role) {
+  selectedRole = role;
+  document.getElementById('card-attendee').classList.toggle('selected', role==='attendee');
+  document.getElementById('card-presenter').classList.toggle('selected', role==='presenter');
+  const pc = document.getElementById('presenter-card');
+  if (role === 'presenter') { pc.style.display = 'block'; setTimeout(()=>pc.scrollIntoView({behavior:'smooth',block:'nearest'}),100); }
+  else { pc.style.display = 'none'; }
+}
+
+// FILE HANDLING
+function handleFileSelect(input) {
+  if (input.files && input.files[0]) setFile(input.files[0]);
+}
+function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('dragover'); }
+function handleDragLeave(e) { document.getElementById('upload-zone').classList.remove('dragover'); }
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) setFile(f);
+}
+function setFile(f) {
+  const allowed = ['pptx','ppt','mp4','avi','mov','wmv','mkv','pdf'];
+  const ext = f.name.split('.').pop().toLowerCase();
+  if (!allowed.includes(ext)) { showToast('❌ ไม่รองรับนามสกุลไฟล์นี้'); return; }
+  selectedFile = f;
+  const icons = {mp4:'🎬',avi:'🎬',mov:'🎬',wmv:'🎬',mkv:'🎬',pptx:'📊',ppt:'📊',pdf:'📄'};
+  document.getElementById('file-icon').textContent = icons[ext] || '📁';
+  document.getElementById('file-name').textContent = f.name;
+  document.getElementById('file-size').textContent = formatSize(f.size);
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('upload-zone').style.display = 'none';
+}
+function removeFile() {
+  selectedFile = null;
+  document.getElementById('file-preview').classList.remove('show');
+  document.getElementById('upload-zone').style.display = 'block';
+  document.getElementById('file-input').value = '';
+}
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1048576).toFixed(1) + ' MB';
+}
+
+// SUBMIT
+function submitForm() {
+  const prefix = document.getElementById('prefix').value;
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const deptGroup = document.getElementById('dept-group').value;
+  const deptUnit = document.getElementById('dept-unit').value;
+
+  if (!selectedRole) { showToast('⚠️ กรุณาเลือกประเภทการเข้าร่วม'); return; }
+  if (!prefix || !fname || !lname) { showToast('⚠️ กรุณากรอกชื่อ-นามสกุลให้ครบ'); return; }
+  if (!phone) { showToast('⚠️ กรุณากรอกเบอร์โทรศัพท์'); return; }
+  if (!deptGroup) { showToast('⚠️ กรุณาเลือกกลุ่มงาน'); return; }
+  if (!deptUnit) { showToast('⚠️ กรุณาเลือกหน่วยงาน'); return; }
+
+  if (selectedRole === 'presenter') {
+    const workTitle = document.getElementById('work-title').value.trim();
+    const workType = document.getElementById('work-type').value;
+    if (!workTitle) { showToast('⚠️ กรุณากรอกชื่อผลงาน'); return; }
+    if (!workType) { showToast('⚠️ กรุณาเลือกประเภทผลงาน'); return; }
+    if (!selectedFile) { showToast('⚠️ กรุณาแนบไฟล์นำเสนอ'); return; }
+  }
+
+  const entry = {
+    role: selectedRole,
+    prefix, fname, lname,
+    position: document.getElementById('position').value,
+    phone,
+    email: document.getElementById('email').value.trim(),
+    deptGroup, deptUnit,
+    workTitle: selectedRole==='presenter' ? document.getElementById('work-title').value.trim() : '',
+    workType:  selectedRole==='presenter' ? document.getElementById('work-type').value : '',
+    duration:  selectedRole==='presenter' ? document.getElementById('duration').value : '',
+    abstract:  selectedRole==='presenter' ? document.getElementById('abstract').value.trim() : '',
+    fileName:  selectedFile ? selectedFile.name : '',
+    fileType:  selectedFile ? selectedFile.type : ''
+  };
+
+  // ปิดปุ่มระหว่าง submit
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span><span>กำลังบันทึก...</span>';
+
+  const doSubmit = (payload) => {
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
+    .then(res => {
+      btn.disabled = false;
+      btn.innerHTML = '<span>✅</span><span>ยืนยันการลงทะเบียน</span>';
+      if (res.status !== 'ok') { showToast('❌ เกิดข้อผิดพลาด: ' + res.message); return; }
+      document.getElementById('modal-detail').innerHTML = `
+        <strong>ชื่อ:</strong> ${prefix}${fname} ${lname}<br>
+        <strong>สังกัด:</strong> ${deptUnit}<br>
+        <strong>กลุ่มงาน:</strong> ${deptGroup}<br>
+        <strong>ประเภท:</strong> ${selectedRole==='presenter' ? '🎤 ผู้นำเสนอผลงาน' : '👩‍⚕️ ผู้เข้าร่วมประชุม'}<br>
+        ${selectedRole==='presenter' ? `<strong>ผลงาน:</strong> ${entry.workTitle}<br><strong>ไฟล์:</strong> ${entry.fileName}` : ''}
+      `;
+      document.getElementById('success-modal').classList.add('show');
+      resetForm();
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<span>✅</span><span>ยืนยันการลงทะเบียน</span>';
+      showToast('❌ ไม่สามารถเชื่อมต่อได้ กรุณาตรวจสอบ Apps Script URL');
+    });
+  };
+
+  // ถ้ามีไฟล์ → แปลงเป็น base64 ก่อนส่ง
+  if (selectedFile) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      entry.fileData = reader.result.split(',')[1]; // base64 only
+      doSubmit(entry);
+    };
+    reader.readAsDataURL(selectedFile);
+  } else {
+    doSubmit(entry);
+  }
+}
+
+function resetForm() {
+  ['prefix','position','fname','lname','phone','email','dept-group','dept-unit',
+   'work-title','work-type','duration','abstract'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  selectedRole = null; selectedFile = null;
+  document.getElementById('card-attendee').classList.remove('selected');
+  document.getElementById('card-presenter').classList.remove('selected');
+  document.getElementById('presenter-card').style.display = 'none';
+  removeFile();
+}
+
+function closeModal() {
+  document.getElementById('success-modal').classList.remove('show');
+}
+
+// STATS
+function updateStats() {
+  document.getElementById('stat-total').textContent = registrants.length;
+  document.getElementById('stat-presenter').textContent = registrants.filter(r=>r['ประเภท']==='ผู้นำเสนอผลงาน').length;
+  document.getElementById('stat-attendee').textContent = registrants.filter(r=>r['ประเภท']==='ผู้เข้าร่วมประชุม').length;
+}
+
+// LOAD FROM GOOGLE SHEETS
+function loadRegistrants() {
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--gray-400)">⏳ กำลังโหลดข้อมูล...</td></tr>';
+  empty.style.display = 'none';
+
+  fetch(APPS_SCRIPT_URL)
+    .then(r => r.json())
+    .then(res => {
+      if (res.status !== 'ok') { showToast('❌ โหลดข้อมูลไม่สำเร็จ'); return; }
+      registrants = res.data || [];
+      updateStats();
+      renderTable();
+    })
+    .catch(() => showToast('❌ ไม่สามารถเชื่อมต่อได้'));
+}
+
+// TABLE
+function renderTable() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const roleFilter = document.getElementById('filter-role').value;
+  const groupFilter = document.getElementById('filter-group').value;
+
+  let filtered = registrants.filter(r => {
+    const name = `${r['คำนำหน้า']}${r['ชื่อ']} ${r['นามสกุล']}`.toLowerCase();
+    const matchSearch = !search || name.includes(search)
+      || (r['หน่วยงาน']||'').toLowerCase().includes(search)
+      || (r['กลุ่มงาน']||'').toLowerCase().includes(search);
+    const matchRole = !roleFilter ||
+      (roleFilter==='presenter' && r['ประเภท']==='ผู้นำเสนอผลงาน') ||
+      (roleFilter==='attendee'  && r['ประเภท']==='ผู้เข้าร่วมประชุม');
+    const matchGroup = !groupFilter || r['กลุ่มงาน'] === groupFilter;
+    return matchSearch && matchRole && matchGroup;
+  });
+
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+
+  if (!filtered.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map((r, i) => {
+    const isPresenter = r['ประเภท'] === 'ผู้นำเสนอผลงาน';
+    const fileUrl  = r['ลิงก์ไฟล์'] || '';
+    const fileName = r['ชื่อไฟล์']  || '';
+    return `
+    <tr>
+      <td style="color:var(--gray-400);font-size:12px">${r['ลำดับ'] || i+1}</td>
+      <td>
+        <div style="font-weight:600;color:var(--navy)">${r['คำนำหน้า']}${r['ชื่อ']} ${r['นามสกุล']}</div>
+        <div style="font-size:11px;color:var(--gray-400)">${r['ตำแหน่ง'] || ''}</div>
+      </td>
+      <td style="font-size:12px;max-width:160px">${r['กลุ่มงาน'] || ''}</td>
+      <td style="font-size:13px">${r['หน่วยงาน'] || ''}</td>
+      <td><span class="badge badge-${isPresenter?'presenter':'attendee'}">${isPresenter?'🎤 นำเสนอ':'👥 เข้าร่วม'}</span></td>
+      <td style="font-size:12px;max-width:160px">${r['ชื่อผลงาน'] || '<span style="color:var(--gray-400)">-</span>'}</td>
+      <td>${fileUrl
+        ? `<a class="file-link" href="${fileUrl}" target="_blank">📎 ${fileName.length>20?fileName.substring(0,18)+'...':fileName}</a>`
+        : '<span style="color:var(--gray-400);font-size:12px">-</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// EXPORT
+function exportCSV() {
+  if (!registrants.length) { showToast('ยังไม่มีข้อมูลให้ Export'); return; }
+  const headers = ['ลำดับ','วันเวลาลงทะเบียน','ประเภท','คำนำหน้า','ชื่อ','นามสกุล','ตำแหน่ง','โทรศัพท์','อีเมล','กลุ่มงาน','หน่วยงาน','ชื่อผลงาน','ประเภทผลงาน','ระยะเวลา (นาที)','Abstract','ชื่อไฟล์','ลิงก์ไฟล์'];
+  const rows = registrants.map(r => headers.map(h => r[h] || ''));
+  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='nursing_conference_2569.csv'; a.click();
+  showToast('✅ Export สำเร็จ');
+}
+
+// TABS
+function switchTab(tab, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if (tab==='list') loadRegistrants();
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
